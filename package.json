@@ -1,0 +1,25 @@
+{
+  "name": "vanilla_flash",
+  "version": "1.0.1",
+  "description": "A lightweight vanilla JavaScript approach to flash messages",
+  "main": "flash.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Voltra/vanillaFlash.git"
+  },
+  "keywords": [
+    "vanilla",
+    "javascript",
+    "flash",
+    "message"
+  ],
+  "author": "Voltra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Voltra/vanillaFlash/issues"
+  },
+  "homepage": "https://github.com/Voltra/vanillaFlash#readme"
+}
