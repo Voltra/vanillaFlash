@@ -3,73 +3,118 @@ A lightweight vanilla JavaScript approach to flash messages.
 
 ## What is vanillaFlash ?
 `vanillaFlash` is a library that allows to ease the use of flash messages.
-It is also a vanilla JavaScript adaptation of my jQuery plugin [jq-flash (on NPM)](https://www.npmjs.com/package/jq-flash).
+It is also a vanilla JavaScript adaptation of my jQuery plugin [jq-flash](https://www.npmjs.com/package/jq-flash).
 
 It allows you to flash messages in a very customizable manner.
 
 ## What is the required structure ?
-First you need to include the CSS and JS files to your page.
+First you need to include the CSS and JS (included in `dist`) files to your page.
+
+This library works bests with a complete CSS reset, one stylesheet is provided for this purpose.
+
+`require`/`import` shouldprovide the flash function, including it as a script tag will expose the `flash` global variable.
+
 Then you can either use a static or dynamic flash message :
+
+
 
 ### A dynamic approach
 Sometimes you need to flash a message "on the go", therefore you can use :
 ```javascript
-/*
-flash(
-	the string containing the message,
-	the string containing the type of flash message [optional]
-)
-*/
-flash("This is a message", "success");
+flash("success", "This is a message");
+flash("pingas", "OwO");
+
+flash.success("yeah!");
+flash.failure("oh :c");
+flash.info("btw");
 ```
+
+
 
 ### A static approach
+
 Sometimes you need to flash a message via your back-end, therefore this is the default structure you need to use (at the very top of your `<body>` tag):
 ```html
-<flash-message class="folded error">
-	<button>&#x2716;</button><!-- a nice X-->
-	<p>This is your error message</p>
-</flash-message>
+<div class="flash flash-folded">
+	<button class="flash-close">&#x2716;</button><!-- a nice X-->
+	<p>This is a message</p>
+</div>
 ```
 
+The flash message type is indicated by adding a class to the wrapping`div` :
+
+```html
+<div class="flash flash-folded flash-success">
+	<button class="flash-close">&#x2716;</button><!-- a nice X-->
+	<p>This is a message</p>
+</div>
+```
+
+
+
+
+
 ## How to customize vanillaFlash ?
-`vanillaFlash` uses a class system to design types (`flash("", "type")` will use `type` as a CSS class for the `<flash-message>`).
 
-Therefore you can create a class `x` like this:
-```css
-flash-message.x{
-	background-color: /*the color used for the background of the flash message*/;
-	color: /*the color used for the texts (message and button)*/;
+`vanillaFlash` uses a class system to design types (`flash("type", "")` will use `flash-type` as a CSS class for the `div`).
 
-	box-shadow: /*the box-shadow used for the background*/;
-	text-shadow: /*the shadow behind the texts (message and button)*/;
+Since v2.0.0, `vanillaFlash` uses [Sass](https://sass-lang.com/), more specifically the SCSS syntax. You can find the source stylesheets under `src`.
+
+
+
+You can create a new type by doing the following:
+
+```scss
+@import "~vanilla_flash/src/flash";//webpack
+.flash-myType{
+    @include flashTheme(
+        orange, //bg color
+        white, //text color
+        0 0 2px rgba(#000, 0.1), //box shadow,
+        none //text shadow
+    );
 }
 ```
 
-You can also add "components" inside of the `<flash-message>`, in that case you might need to do more modifications:
+
+
+You can also modify variables before importing sthe entire `flash` stylesheet because it uses `!default` flags everywhere :
+
+```scss
+$flashGreen: blue;
+@import "~vanilla_flash/src/flash";//webpack
+```
+
+
+
+
+
+
+
+You can also add "components" inside of the `div`, in that case you might need to do more modifications:
 ```css
-flash-message.icon > div.icon{
+.flash-icon{
 	height: 100%;
 	width: 8vh;
 }
 
-flash-message.icon > div.icon{
+.flash-icon > div.icon{
 	height: /*whatever between 0 and 100%*/;
 	width: /*whatever between 0 and 8vh*/;
 }
 
-flash-message.icon > p{
+.flash-icon > p{
 	width: calc(100vw - 8vh - 8vh);
 	/*total - img's div - button*/
 }
 ```
 Associated with
 ```html
-<flash-message class="folded icon">
-	<button>&#x2716;</button>
+<div class="flash flash-folded flash-icon">
+	<button class="flash-close">&#x2716;</button>
 	<div class="icon">
 		<img src="path/to/icon/file.extension" alt="your icon"/>
 	</div>
 	<p>Dem Messages</p>
-</flash-message>
+</div>
 ```

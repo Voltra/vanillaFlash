@@ -1,0 +1,69 @@
+.flash {
+  width: 100vw;
+  height: 10vh;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  font-family: "Roboto", robotoMedium, roboto;
+  cursor: pointer;
+  transition: height 0.5s ease-in-out;
+  background-color: teal;
+  color: #e9ebee;
+  text-shadow: 0 0 0 transparent;
+  box-shadow: inset 0px -0.25vh 0.5vh 0px rgba(0, 0, 0, 0.15); }
+  .flash, .flash > * {
+    box-sizing: border-box;
+    display: block; }
+  .flash-folded {
+    height: 0;
+    transition: height 0.5s ease-in-out; }
+  .flash > * {
+    padding: 1vh; }
+  .flash-close {
+    width: 6.9vh;
+    height: 6.9vh;
+    border-radius: 1vh;
+    float: left;
+    cursor: pointer;
+    padding: 0;
+    margin-left: calc((10vh - 6.9vh) / 2);
+    margin-top: 1.55vh;
+    font-size: 4vh;
+    border: none;
+    background-color: transparent;
+    color: inherit; }
+  .flash p {
+    width: calc(100vw - 6.9vh - (2 * calc((10vh - 6.9vh) / 2)));
+    height: auto;
+    max-height: calc(10vh - 1vh);
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: inherit; }
+  .flash-embed {
+    width: 80%;
+    margin: auto;
+    /*centered*/
+    margin-top: 0%; }
+    .flash-embed p {
+      width: calc(100% - 6.9vh - (2 * calc((10vh - 6.9vh) / 2))); }
+
+.flash-success {
+  background-color: #11b281;
+  color: #1d2d38;
+  text-shadow: 0 0 0 transparent;
+  box-shadow: inset 0px -0.25vh 0.5vh 0px rgba(0, 0, 0, 0.15); }
+
+.flash-failure {
+  background-color: #740303;
+  color: #e9ebee;
+  text-shadow: 0 0 0 transparent;
+  box-shadow: inset 0px -0.25vh 0.5vh 0px rgba(0, 0, 0, 0.15); }
+
+.flash-info {
+  background-color: #0d679b;
+  color: #e9ebee;
+  text-shadow: 0 0 0 transparent;
+  box-shadow: inset 0px -0.25vh 0.5vh 0px rgba(0, 0, 0, 0.15); }
+
