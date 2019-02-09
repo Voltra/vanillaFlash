@@ -1,19 +1,4 @@
-import "./flash.scss"
-
-(function UniversalModuleDefinition(root, factory){
-	if(typeof exports === 'object' && typeof module === 'object')
-        module.exports = factory(root);
-    else{
-		const module_name = "flash";
-		if(typeof define === 'function' && define.amd)
-			define(module_name, [], factory.bind(null, root));
-		else
-			if(typeof exports === 'object')
-				exports[module_name] = factory(root);
-			else
-				root[module_name] = factory(root);
-	}
-})(window, root => {
+const flashInstaller = root => {
     const flash_scrollToTop = (ms, itcount=0) => {
         if(typeof ms != "number")
             throw new root.TypeError("The first parameter must be an integer (in ms).");
@@ -29,13 +14,13 @@ import "./flash.scss"
         }
     };
 
-    const unfoldFlashMessage = fm => {
+    const unfoldFlashMessage = (fm, context=root.document.body) => {
         fm.classList.remove("flash-folded");
         flash_scrollToTop(150);
         fm.onclick = ()=>{
             fm.classList.add("flash-folded");
             setTimeout(
-                () => root.document.body.removeChild(fm),
+                () => context.removeChild(fm),
                 2000//a 2s timeout before removing node, to let transitions be
             );
         };
@@ -46,10 +31,10 @@ import "./flash.scss"
 
         const foldedFlashes = toArray(root.document.querySelectorAll(".flash-folded"));
 
-        foldedFlashes.forEach(unfoldFlashMessage);
+        foldedFlashes.forEach(fm => unfoldFlashMessage(fm, fm.parentElement));
     }
 
-    const flash = (type, msg) => {
+    const flash = (type, msg, context=root.document.body) => {
         if(typeof msg != "string")
             throw new root.TypeError("The message must be a string.");
         if(typeof type != "string")
@@ -70,10 +55,13 @@ import "./flash.scss"
 
         if(type !== "")
             FM.classList.add(`flash-${type}`);
+        
+        if(context != root.document.body)
+            FM.classList.add("flash-embed");
 
-        root.document.body.prepend(FM);
+        context.prepend(FM);
 
-        root.setTimeout(() => unfoldFlashMessage(FM), 250);
+        root.setTimeout(() => unfoldFlashMessage(FM, context), 250);
     }
 
     root.document.addEventListener("DOMContentLoaded", unfoldFlashMessages);
@@ -82,6 +70,11 @@ import "./flash.scss"
     .forEach(type => flash[type] = flash.bind(flash, type));
 
     flash.default = flash.bind(flash, "");
-
+    
+    root.flash = flash;    
     return flash;
-});
+};
+
+const flash = flashInstaller(window);
+
+export { flash, flashInstaller }

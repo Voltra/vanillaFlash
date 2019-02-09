@@ -1,8 +1,8 @@
 {
   "name": "vanilla_flash",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A lightweight vanilla JavaScript approach to flash messages",
-  "main": "./dist/flash.js",
+  "main": "./src/flash.js",
   "scripts": {
     "build": "webpack --mode=production",
     "devBuild": "webpack --mode=development",
@@ -31,7 +31,6 @@
     "babel-loader": "^8.0.5",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
-    "laravel-mix": "^4.0.13",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",

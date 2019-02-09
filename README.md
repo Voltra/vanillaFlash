@@ -51,6 +51,30 @@ The flash message type is indicated by adding a class to the wrapping`div` :
 ```
 
 
+## How to embed ?
+Since v2.0.0 you can use the special class `flash-embed` to specify that the flash message isn't in the global scope (i.e. it is within another element than `<body>`).
+
+Since v2.0.1 you can now flash has the following signature : `flash(type, message, context)`. You can provide the `context` argument (which expects an `HTMLElement`) to specify where to embed it. This works also with shorthands (e.g. `flash.info("PINGAS", document.getElementById("flash_holder"))`).
+
+
+
+The following is the basic HTML structure for an embed :
+
+```html
+<div class="someContainer">
+    <div class="flash flash-folded flash-embed">
+        <button class="flash-close">&#x2716;</button>
+        <p>Dem Messages</p>
+    </div>
+    
+    <div class="someOtherContent">
+        [...]
+    </div>
+</div>
+```
+
+
+
 
 
 
